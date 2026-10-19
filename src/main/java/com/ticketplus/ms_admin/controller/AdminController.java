@@ -17,14 +17,14 @@ public class AdminController {
     }
 
     @PostMapping("/queues")
-    public ResponseEntity<String> crearCola(@Valid @RequestBody QueueRequest request) {
+    public ResponseEntity<Object> crearCola(@Valid @RequestBody QueueRequest request) {
         rabbitAdminService.crearCola(request.getNombre());
-        return ResponseEntity.ok("Cola creada exitosamente en RabbitMQ: " + request.getNombre());
+        return ResponseEntity.ok(java.util.Map.of("mensaje", "Cola creada exitosamente: " + request.getNombre()));
     }
 
     @DeleteMapping("/queues/{name}")
-    public ResponseEntity<String> eliminarCola(@PathVariable String name) {
+    public ResponseEntity<Object> eliminarCola(@PathVariable String name) {
         rabbitAdminService.eliminarCola(name);
-        return ResponseEntity.ok("Cola eliminada de RabbitMQ: " + name);
+        return ResponseEntity.ok(java.util.Map.of("mensaje", "Cola eliminada: " + name));
     }
 }
